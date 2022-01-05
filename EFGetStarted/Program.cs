@@ -10,49 +10,53 @@ namespace EFGetStarted
         {
             using (var db = new BloggingContext())
             {
-                // Note: This sample requires the database to be created before running.
-                Console.WriteLine($"Database path: {db.DbPath}.");
-                
-                // Create
-                Console.WriteLine("Inserting a new blog");
-                db.Add(new Blog { Url = "http://blogs.msdn.com/adonet" });
-                db.SaveChanges();
-
-                // Read
-                Console.WriteLine("Querying for a blog");
-                var blog = db.Blogs
-                    .OrderBy(b => b.BlogId)
-                    .First();
-
-                var query = db.Blogs.Where(x => x.Url.Contains("http"));
-                var sql = query.ToQueryString();
-
-                // Update
-                Console.WriteLine("Updating the blog and adding a post");
-                blog.Url = "https://devblogs.microsoft.com/dotnet";
-                blog.Posts.Add(
-                    new Post { Title = "Hello World", Content = "I wrote an app using EF Core!" });
-                db.SaveChanges();
-
-                var post = db.Posts.ToList();
-
-                // Delete
-                Console.WriteLine("Delete the blog");
-                db.Remove(blog);
-                db.SaveChanges();
-
-                // Adding new Tags to db
-                Console.WriteLine("Adding Tags");
-                db.Add(new Tag { TagName = "Nuevo" });
-                db.SaveChanges();
-                Console.WriteLine("Tags added successfully");
-
-                // Tags Query
+                // Para controlar que estan vacias
+                var blogs = db.Blogs.ToList();
+                var posts = db.Posts.ToList();
                 var tags = db.Tags.ToList();
 
-                var fTag = db.Tags.OrderBy(b => b.TagId).First();
+                // Agregamos un blog
+                db.Blogs.Add(new Blog {Url = "https://miweb.com"});
+                db.Blogs.Add(new Blog {Url = "https://www.miweb2.com.ar"});
+                db.SaveChanges();
 
-                fTag.posts = post;
+                // Vemos que se agrego correctamente
+                var blogsList = db.Blogs.ToList();
+
+
+
+                // Agregamos un par de posts
+                db.Posts.Add(new Post {Title = "Post 1", Content = "Contenido post 1", Blog =db.Blogs.OrderBy(b => b.BlogId).First()});
+                db.Posts.Add(new Post {Title = "Post 2", Content = "Contenido post 2", Blog =db.Blogs.OrderBy(b => b.BlogId).First()});
+                db.SaveChanges();
+
+                blogs = db.Blogs.ToList();
+
+
+                db.Tags.Add(new Tag{ TagName = "Informatica", posts= db.Posts.ToList() });
+                db.Tags.Add(new Tag{ TagName = "Generico"});
+                db.SaveChanges();
+
+                
+                tags = db.Tags.ToList();
+                posts = db.Posts.ToList();
+
+
+
+
+                // Vaciamos todo nuevamente
+                foreach( var entity in db.Posts ){
+                    db.Posts.Remove(entity);
+                }
+                db.SaveChanges();
+                foreach( var entity in db.Tags ){
+                    db.Tags.Remove(entity);
+                }
+                db.SaveChanges();
+                foreach( var entity in db.Blogs ){
+                    db.Blogs.Remove(entity);
+                }
+                db.SaveChanges();
 
             }
         }

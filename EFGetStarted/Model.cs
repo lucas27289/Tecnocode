@@ -50,6 +50,7 @@ namespace EFGetStarted
         public ICollection<Tag> tags { get; set; } 
     }
 
+    [Index(nameof(TagName))]
     public class Tag 
     {
         public int TagId { get; set; }

@@ -2,6 +2,7 @@
 using EFGetStarted;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFGetStarted.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    partial class BloggingContextModelSnapshot : ModelSnapshot
+    [Migration("20220105133741_IndexTuto")]
+    partial class IndexTuto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.1");
@@ -52,6 +54,9 @@ namespace EFGetStarted.Migrations
 
                     b.HasIndex("BlogId");
 
+                    b.HasIndex(new[] { "Title" }, "TituloPost")
+                        .IsUnique();
+
                     b.ToTable("Posts");
                 });
 
@@ -67,8 +72,6 @@ namespace EFGetStarted.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("TagId");
-
-                    b.HasIndex("TagName");
 
                     b.ToTable("Tags");
                 });
