@@ -33,7 +33,7 @@ namespace EFGetStarted
                 blogs = db.Blogs.ToList();
 
 
-                db.Tags.Add(new Tag{ TagName = "Informatica", posts= db.Posts.ToList() });
+                db.Tags.Add(new Tag{ TagName = "Informatica", Posts= db.Posts.ToList() });
                 db.Tags.Add(new Tag{ TagName = "Generico"});
                 db.SaveChanges();
 
