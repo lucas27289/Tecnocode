@@ -12,6 +12,6 @@ namespace EFGetStarted
         [MaxLength(50)]
         public string TagName { get; set; }
         
-        public ICollection<Post> posts {  get; set; }
+        public ICollection<Post> Posts {  get; set; }
     }
 }

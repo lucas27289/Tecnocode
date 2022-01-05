@@ -10,6 +10,6 @@ namespace EFGetStarted
         public Blog Blog { get; set; }
 
 // para relacion m2m con tags
-        public ICollection<Tag> tags { get; set; } 
+        public ICollection<Tag> Tags { get; set; } 
     }
 }
