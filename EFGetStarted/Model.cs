@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 
 
 namespace EFGetStarted
@@ -27,37 +26,5 @@ namespace EFGetStarted
         // special "local" folder for your platform.
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite($"Data Source={DbPath}");
-    }
-
-    public class Blog
-    {
-        public int BlogId { get; set; }
-        public string Url { get; set; }
-
-        public List<Post> Posts { get; } = new();
-    }
-
-    public class Post
-    {
-        public int PostId { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
-
-        public int BlogId { get; set; }
-        public Blog Blog { get; set; }
-
-// para relacion m2m con tags
-        public ICollection<Tag> tags { get; set; } 
-    }
-
-    [Index(nameof(TagName))]
-    public class Tag 
-    {
-        public int TagId { get; set; }
-        
-        [MaxLength(50)]
-        public string TagName { get; set; }
-        
-        public ICollection<Post> posts {  get; set; }
     }
 }
