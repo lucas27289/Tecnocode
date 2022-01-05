@@ -40,6 +40,20 @@ namespace EFGetStarted
                 Console.WriteLine("Delete the blog");
                 db.Remove(blog);
                 db.SaveChanges();
+
+                // Adding new Tags to db
+                Console.WriteLine("Adding Tags");
+                db.Add(new Tag { TagName = "Nuevo" });
+                db.SaveChanges();
+                Console.WriteLine("Tags added successfully");
+
+                // Tags Query
+                var tags = db.Tags.ToList();
+
+                var fTag = db.Tags.OrderBy(b => b.TagId).First();
+
+                fTag.posts = post;
+
             }
         }
     }

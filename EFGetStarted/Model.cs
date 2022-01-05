@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace EFGetStarted
 {
@@ -8,6 +10,9 @@ namespace EFGetStarted
     {
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
+
+        // DbSet for Tags
+        public DbSet<Tag> Tags { get; set; }
 
         public string DbPath { get; }
 
@@ -40,5 +45,18 @@ namespace EFGetStarted
 
         public int BlogId { get; set; }
         public Blog Blog { get; set; }
+
+// para relacion m2m con tags
+        public ICollection<Tag> tags { get; set; } 
+    }
+
+    public class Tag 
+    {
+        public int TagId { get; set; }
+        
+        [MaxLength(50)]
+        public string TagName { get; set; }
+        
+        public ICollection<Post> posts {  get; set; }
     }
 }
