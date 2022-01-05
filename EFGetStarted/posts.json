@@ -1,0 +1,22 @@
+[
+  {
+    "PostId": 123,
+    "Title": "Post 1",
+    "Content": "Contenido post 1",
+    "BlogId": 133,
+    "Blog": {
+      "BlogId": 133,
+      "Url": "https://miweb.com"
+    }
+  },
+  {
+    "PostId": 124,
+    "Title": "Post 2",
+    "Content": "Contenido post 2",
+    "BlogId": 133,
+    "Blog": {
+      "BlogId": 133,
+      "Url": "https://miweb.com"
+    }
+  }
+]

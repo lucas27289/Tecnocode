@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFGetStarted
@@ -41,6 +42,17 @@ namespace EFGetStarted
                 tags = db.Tags.ToList();
                 posts = db.Posts.ToList();
 
+                string path = @"c:\Posts.json";
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string jsonString = JsonSerializer.Serialize(db.Posts, options);
+            
+                
+                File.WriteAllText(path, jsonString);
+
+                Console.WriteLine(File.ReadAllText(path));
+
+                List<Post> posteos = JsonSerializer.Deserialize<List<Post>>(jsonString);
+
 
 
 
@@ -57,6 +69,7 @@ namespace EFGetStarted
                     db.Blogs.Remove(entity);
                 }
                 db.SaveChanges();
+
 
             }
         }

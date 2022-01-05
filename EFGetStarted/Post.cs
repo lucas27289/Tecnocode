@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace EFGetStarted
 {
     public class Post
@@ -10,6 +12,7 @@ namespace EFGetStarted
         public Blog Blog { get; set; }
 
 // para relacion m2m con tags
+        [JsonIgnore] 
         public ICollection<Tag> Tags { get; set; } 
     }
 }
